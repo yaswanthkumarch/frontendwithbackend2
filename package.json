@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "frontapp": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -29,6 +30,7 @@
       "not dead",
       "not op_mini all"
     ],
+    "proxy": "https://sampleapp-b2bdaxfrf9dmfyes.southindia-01.azurewebsites.net",
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
