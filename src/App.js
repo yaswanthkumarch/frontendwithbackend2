@@ -12,7 +12,11 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Start loading
       try {
+        // Simulate a delay (e.g., for demonstration purposes)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
         // Fetch name data
         const nameResponse = await fetch(`${BASE_URL}/name`);
         if (!nameResponse.ok) {
