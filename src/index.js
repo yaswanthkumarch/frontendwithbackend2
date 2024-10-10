@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './index.css'; // Optional if you have some global styles
+import App from './App'; // Main App component
+
+// Find the root element in the HTML
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Render the App component inside the root element
 root.render(
   <React.StrictMode>
-  <h1>erri</h1>
+    {/* Temporary test heading to check rendering */}
+    <h1>erri</h1>
+    {/* Main App component */}
     <App />
   </React.StrictMode>
 );
