@@ -9,7 +9,7 @@ const App = () => {
 
   // Define the base URL for the API
   const BASE_URL = 'https://sampleapp-b2bdaxfrf9dmfyes.southindia-01.azurewebsites.net/api';
-
+<h1>hii git</h1>
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true); // Start loading
