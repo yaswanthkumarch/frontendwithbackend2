@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // Render the App component inside the root element
 root.render(
   <React.StrictMode>
-    {/* Temporary test heading to check rendering */}
+    {/* Temporary test heading to check  */}
    
     {/* Main App component */}
     <App />

@@ -1,38 +1,65 @@
 import React, { useState, useEffect } from 'react';
 
 const App = () => {
-  // Sample data to replace API data
-  const sampleNameData = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-    { id: 3, name: "Charlie" }
-  ];
-
-  const sampleUserData = [
-    { id: 1, username: "alice123", email: "alice@example.com" },
-    { id: 2, username: "bob456", email: "bob@example.com" },
-    { id: 3, username: "charlie789", email: "charlie@example.com" }
-  ];
-
-  const sampleMessageData = [
-    { id: 1, message: "Hello from Alice!" },
-    { id: 2, message: "Hi there, this is Bob." },
-    { id: 3, message: "Charlie here, nice to meet you!" }
-  ];
-
-  const [nameData, setNameData] = useState(sampleNameData);
-  const [userData, setUserData] = useState(sampleUserData);
-  const [messageData, setMessageData] = useState(sampleMessageData);
-  const [loading, setLoading] = useState(false);
+  const [nameData, setNameData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [messageData, setMessageData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // State to handle errors
+<h1>hii git</h1>
 
+  const BASE_URL = 'https://sampleapp-b2bdaxfrf9dmfyes.southindia-01.azurewebsites.net/api';
+<h1>hii git</h1>
   useEffect(() => {
-    // Simulate loading state
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false); // Stop loading after the timeout
-    }, 1000);
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      try {
+        // Simulate a delay (e.g., for demonstration purposes)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Fetch name data
+        const nameResponse = await fetch(`${BASE_URL}/name`);
+        if (!nameResponse.ok) {
+          throw new Error(`Error fetching name data: ${nameResponse.status} - ${nameResponse.statusText}`);
+        }
+        const name = await getJsonOrText(nameResponse); // Handle both JSON and plain text
+        setNameData(name);
+
+        // Fetch user data
+        const userResponse = await fetch(`${BASE_URL}/users`);
+        if (!userResponse.ok) {
+          throw new Error(`Error fetching user data: ${userResponse.status} - ${userResponse.statusText}`);
+        }
+        const user = await getJsonOrText(userResponse); // Handle both JSON and plain text
+        setUserData(user);
+
+        // Fetch message data
+        const messageResponse = await fetch(`${BASE_URL}/message`);
+        if (!messageResponse.ok) {
+          throw new Error(`Error fetching message data: ${messageResponse.status} - ${messageResponse.statusText}`);
+        }
+        const message = await getJsonOrText(messageResponse); // Handle both JSON and plain text
+        setMessageData(message);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError(error.message); // Set the error message
+      } finally {
+        setLoading(false); // Stop loading after all requests
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // Helper function to handle responses
+  const getJsonOrText = async (response) => {
+    const contentType = response.headers.get('Content-Type');
+    if (contentType && contentType.includes('application/json')) {
+      return await response.json(); // Parse as JSON
+    }
+    return await response.text(); // Parse as text if not JSON
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -44,62 +71,19 @@ const App = () => {
 
   return (
     <div>
-      <h1>Sample Data</h1>
-      <h2>Name Data:</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {nameData.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h2>User Data:</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userData.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.username}</td>
-              <td>{item.email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h2>Message Data:</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Message</th>
-          </tr>
-        </thead>
-        <tbody>
-          {messageData.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.message}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h1>API Data</h1>
+      <div>
+        <h2>Name Data:</h2>
+        <pre>{JSON.stringify(nameData, null, 2)}</pre>
+      </div>
+      <div>
+        <h2>User Data:</h2>
+        <pre>{JSON.stringify(userData, null, 2)}</pre>
+      </div>
+      <div>
+        <h2>Message Data:</h2>
+        <pre>{JSON.stringify(messageData, null, 2)}</pre>
+      </div>
     </div>
   );
 };
