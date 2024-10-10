@@ -6,10 +6,9 @@ const App = () => {
   const [messageData, setMessageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // State to handle errors
-<h1>hii git</h1>
 
   const BASE_URL = 'https://sampleapp-b2bdaxfrf9dmfyes.southindia-01.azurewebsites.net/api';
-<h1>hii git</h1>
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true); // Start loading
@@ -74,6 +73,7 @@ const App = () => {
       <h1>API Data</h1>
       <div>
         <h2>Name Data:</h2>
+        <h1>check</h1>
         <pre>{JSON.stringify(nameData, null, 2)}</pre>
       </div>
       <div>
